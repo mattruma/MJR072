@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "86751df9-d5a2-43a6-87b3-9d3c6e50a88e",
+		"name": "MJR072",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Speaker List - 200 OK",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apiUrl}}/speakers",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"speakers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Speaker List - 401 Not Authorized",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apiUrl}}/speakers",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"speakers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Forecast List - 200 OK",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"type": "text",
+						"value": "{{apiKey}}"
+					}
+				],
+				"url": {
+					"raw": "{{apiUrl}}/api/weatherforecast",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"weatherforecast"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Forecast List - 401 Not Authorized",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apiUrl}}/api/weatherforecast",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"weatherforecast"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

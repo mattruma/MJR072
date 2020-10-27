@@ -1,0 +1,80 @@
+﻿@page "/profile"
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using System.Security.Claims
+@using System.Threading.Tasks
+@inject IAccessTokenProvider AccessTokenProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Profile</h3>
+
+@if (this.IsLoading)
+{
+<p><em>Loading...</em></p>
+return;
+}
+
+<h1 class="mb-4">Hello, @this.User.Identity.Name!</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in this.User.Claims)
+        {
+        <tr>
+            <td><code>@claim.Type</code></td>
+            @if (claim.Value.Length > 50)
+                {
+            <td title="@claim.Value">@claim.Value.Substring(0,50)...<CopyToClipboard Text="@claim.Value" /></td>
+            }
+                else
+                {
+            <td title="@claim.Value">@claim.Value<CopyToClipboard Text="@claim.Value" /></td>
+            }
+        </tr>
+        }
+        @if (this.Token != null) {
+        <tr>
+            <td><code>access_token</code></td>
+            <td>
+                @(this.Token.Value.Substring(0,50))...<CopyToClipboard Text="@this.Token.Value" />
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private bool IsLoading { get; set; } = true;
+
+    private AccessToken Token { get; set; }
+
+    private ClaimsPrincipal User { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        this.IsLoading = true;
+
+        var authenticationState =
+            await this.AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        this.User =
+            authenticationState.User;
+
+        var tokenResult =
+            await this.AccessTokenProvider.RequestAccessToken();
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            this.Token = token;
+        }
+
+        this.IsLoading = false;
+    }
+}

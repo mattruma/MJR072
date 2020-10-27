@@ -1,0 +1,14 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<a @onclick=@this.OnClickCallback class="copy-to-clipboard"><i class="oi oi-clipboard"></i></a>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    public async Task OnClickCallback()
+    {
+        await this.JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", Text);
+    }
+}
